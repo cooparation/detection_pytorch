@@ -2,8 +2,18 @@ import os
 
 
 class DatasetCatalog:
-    DATA_DIR = '/workspace/D2/sanjun/VOCdevkit'#'datasets'
+    #DATA_DIR = '/workspace/D2/sanjun/VOCdevkit'#'datasets'
+    ## sanjun liu ##
+    DATA_DIR = '/workspace/D2/sanjun/ExtractedVOCClasses'
     DATASETS = {
+        'voc_person_trainval': {
+            "data_dir": "person",
+            "split": "trainval"
+        },
+        'voc_person_test': {
+            "data_dir": "person",
+            "split": "test"
+        },
         'voc_2007_train': {
             "data_dir": "VOC2007",
             "split": "train"
@@ -67,6 +77,18 @@ class DatasetCatalog:
                 split=attrs["split"],
             )
             return dict(factory="VOCDataset", args=args)
+        ## sanjun liu ##
+        elif "person" in name:
+            voc_root = DatasetCatalog.DATA_DIR
+            #if 'VOC_ROOT' in os.environ:
+            #    voc_root = os.environ['VOC_ROOT']
+
+            attrs = DatasetCatalog.DATASETS[name]
+            args = dict(
+                data_dir=os.path.join(voc_root, attrs["data_dir"]),
+                split=attrs["split"],
+            )
+            return dict(factory="PersonDataset", args=args)
         elif "coco" in name:
             coco_root = DatasetCatalog.DATA_DIR
             if 'COCO_ROOT' in os.environ:

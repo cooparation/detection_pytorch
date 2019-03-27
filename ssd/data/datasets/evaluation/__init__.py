@@ -20,3 +20,6 @@ def evaluate(dataset, predictions, output_dir):
         return voc_evaluation(**args)
     elif isinstance(dataset, COCODataset):
         return coco_evaluation(**args)
+    ## sanjun liu ##
+    elif isinstance(dataset, PersonDataset):
+        return voc_evaluation(**args)

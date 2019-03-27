@@ -51,14 +51,19 @@ def do_train(cfg, model,
              args):
     logger = logging.getLogger("SSD.trainer")
     logger.info("Start training")
-    model.train()
     save_to_disk = distributed_util.get_rank() == 0
     if args.use_tensorboard and save_to_disk:
         import tensorboardX
 
-        summary_writer = tensorboardX.SummaryWriter(log_dir=cfg.OUTPUT_DIR)
+        summary_writer = tensorboardX.SummaryWriter(log_dir=cfg.OUTPUT_DIR, comment="myvgg")
+        #dummy_input = torch.zeros(1, 3, 300, 300)
+        #dummy_input = dummy_input.type(torch.cuda.FloatTensor)
+        #with summary_writer:
+        #    summary_writer.add_graph(model, dummy_input, True)
     else:
         summary_writer = None
+
+    model.train()
 
     max_iter = len(data_loader)
     start_training_time = time.time()

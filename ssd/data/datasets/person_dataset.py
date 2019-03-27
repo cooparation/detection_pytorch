@@ -5,17 +5,10 @@ import xml.etree.ElementTree as ET
 from PIL import Image
 
 
-class VOCDataset(torch.utils.data.Dataset):
-    ## sanjun liu ##
-    #class_names = ('__background__',
-    #               'aeroplane', 'bicycle', 'bird', 'boat',
-    #               'bottle', 'bus', 'car', 'cat', 'chair',
-    #               'cow', 'diningtable', 'dog', 'horse',
-    #               'motorbike', 'person', 'pottedplant',
-    #               'sheep', 'sofa', 'train', 'tvmonitor')
-
+class PersonDataset(torch.utils.data.Dataset):
     class_names = ('__background__',
-                   'person')
+                   'person'
+                  )
 
     def __init__(self, data_dir, split, transform=None, target_transform=None, keep_difficult=False):
         """Dataset for VOC data.
@@ -28,7 +21,7 @@ class VOCDataset(torch.utils.data.Dataset):
         self.transform = transform
         self.target_transform = target_transform
         image_sets_file = os.path.join(self.data_dir, "ImageSets", "Main", "%s.txt" % self.split)
-        self.ids = VOCDataset._read_image_ids(image_sets_file)
+        self.ids = PersonDataset._read_image_ids(image_sets_file)
         self.keep_difficult = keep_difficult
 
         self.class_dict = {class_name: i for i, class_name in enumerate(self.class_names)}

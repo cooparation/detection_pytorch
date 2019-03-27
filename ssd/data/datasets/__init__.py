@@ -3,6 +3,8 @@ from torch.utils.data import ConcatDataset
 from ssd.config.path_catlog import DatasetCatalog
 from .voc_dataset import VOCDataset
 from .coco_dataset import COCODataset
+## sanjun liu ##
+from .person_dataset import PersonDataset
 
 
 def build_dataset(dataset_list, transform=None, target_transform=None, is_test=False):
